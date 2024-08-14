@@ -1,0 +1,18 @@
+@Starter("Telegram App")
+"visa-click-telegram"."/start"(owner_id) {
+  // Первичное получение информации
+  GetInformationResponse = "visa-click-backend"."GET /api/v1/information"(owner_id) {
+    // Находим клиента или создаем нового
+    User = postgresql.findOrCreateUser(owner_id)
+    // Находим все заявки клиента
+    Requests = postgresql.findByOwnerId(owner_id)
+  }
+  
+  if (Requests.IsEmpty()) {
+    // Первичное сообщение
+    return "{welcome_message}"
+  } else {
+    // Выводим список заявок
+    return "{requests_list_message}"
+  }
+}
