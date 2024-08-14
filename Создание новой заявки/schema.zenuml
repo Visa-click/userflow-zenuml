@@ -8,6 +8,7 @@
     // Если клиент не найден
     if (User == null) {
       return "404 Not Found"
+      "visa-click-telegram" -> "Telegram App": {welcome_message}
     }
     // Находим не отправленную заявку клиента
     Request = postgresql.findByOwnerIdAndCorrelationIdIsNull(owner_id)
@@ -21,4 +22,5 @@
     Request = postgresql.save(owner_id)
     return "201 CreateRequestResponse(Request)" 
   }
+  return "{start_fill_keta_fields}"
 }
