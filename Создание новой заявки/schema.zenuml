@@ -16,11 +16,11 @@
     if (Request != null) {
       // Если заявка уже создана
       return "200 CreateRequestResponse(Request)"
-    } 
-      
-    // Создаем заявку и отдаем
-    Request = postgresql.save(owner_id)
-    return "201 CreateRequestResponse(Request)" 
+    } else {
+      // Создаем заявку и отдаем
+      Request = postgresql.save(owner_id)
+      return "201 CreateRequestResponse(Request)"  
+    }
   }
   return "{start_fill_keta_fields}"
 }
