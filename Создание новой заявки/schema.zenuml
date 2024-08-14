@@ -1,0 +1,24 @@
+@Starter("Telegram App")
+"visa-click-telegram".create_application(owner_id) {
+  // Создание заявки на визу
+  "visa-click-backend"."POST /api/v1/create_request('TELEGRAM', owner_id)" {
+    // Находим клиента
+    User = postgresql.findUserByOwnerIdOrNull(owner_id)
+    
+    // Если клиент не найден
+    if (User == null) {
+      return "404 Not Found"
+    }
+    // Находим не отправленную заявку клиента
+    Request = postgresql.findByOwnerIdAndCorrelationIdIsNull(owner_id)
+    
+    if (Request != null) {
+      // Если заявка уже создана
+      return "200 CreateRequestResponse(Request)"
+    } 
+      
+    // Создаем заявку и отдаем
+    Request = postgresql.save(owner_id)
+    return "201 CreateRequestResponse(Request)" 
+  }
+}
