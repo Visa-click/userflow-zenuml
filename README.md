@@ -6,7 +6,7 @@
 <a href="./Создание новой заявки/image.png">смотреть схему</a>
 3. Заполнение данных:</br>
     a. все поля, кроме face_photo и passport_scan: <a href="./Заполнение данных/common/schema.zenuml">читать описание</a>, <a href="./Заполнение данных/common/image.png">смотреть схему</a></br>
-    b. passport_scan: <a href="./Заполнение данных/passport/schema.zenuml">читать описание</a>, <a href="./Заполнение данных/passport/image.png">смотреть схему</a>
+    b. passport_scan: <a href="./Заполнение данных/passport/schema.zenuml">читать описание</a>, <a href="./Заполнение данных/passport/image.png">смотреть схему</a></br>
     c. face_photo: <a href="./Заполнение данных/face/schema.zenuml">читать описание</a>, <a href="./Заполнение данных/face/image.png">смотреть схему</a>
 4. Оплата услуги:
 5. Исполнение заявки:
