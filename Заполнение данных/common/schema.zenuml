@@ -1,0 +1,23 @@
+@Starter("Telegram App")
+// Обновляем поля клиента для визы {
+"Telegram Bot".setField(phoneNumber, owner_id) {
+  
+  // Отпраляем номер телефона
+  "200 OK UpdateResponseDto" = "visa-click-backend"."POST /api/v1/update_request"(owner_id, mobile_phone) {
+
+    // Ищем клиента
+    User = postgres.findUserByOwnerIdOrNull(owner_id)
+    
+    if (User == null) {
+      // Если клиента нет, начинаем заново
+      return "404 NotFound"
+      "Telegram Bot" -> "Telegram App": {welcome_message}
+    }
+ 
+    // Обновляем mobile_phone у User
+    User = postgres.updateUser(User)    
+  }
+  
+  // Переходим к следующему шагу
+  return "{next_step}"
+}

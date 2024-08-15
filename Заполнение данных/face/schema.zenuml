@@ -1,0 +1,26 @@
+@Starter("Telegram App")
+// Обновляем поля клиента для визы {
+"Telegram Bot".setField(face_photo, owner_id) {
+  
+  // Отпраляем загран
+  "200 OK UpdateResponseDto" = "visa-click-backend"."POST /api/v1/update_request"(owner_id, facePhoto) {
+
+    // Ищем клиента
+    User = postgres.findUserByOwnerIdOrNull(owner_id)
+    
+    if (User == null) {
+      // Если клиента нет, начинаем заново
+      return "404 NotFound"
+      "Telegram Bot" -> "Telegram App": {welcome_message}
+    }
+    
+    // Сохраняем фото в зашифрованную корзину
+    minio.uploadObject("FACES", facePhoto)
+    
+    // Обновляем facePhotoObjectId у User
+    User = postgres.updateUser(User)    
+  }
+  
+  // Переходим к следующему шагу
+  return "{next_step}"
+}

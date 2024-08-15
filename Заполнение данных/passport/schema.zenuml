@@ -1,0 +1,32 @@
+@Starter("Telegram App")
+// Обновляем поля клиента для визы {
+"Telegram Bot".setField(passport_scan, owner_id) {
+  
+  // Отпраляем загран
+  "200 OK UpdateResponseDto" = "visa-click-backend"."POST /api/v1/update_request"(owner_id, foreignPassportPhoto) {
+
+    // Ищем клиента
+    User = postgres.findUserByOwnerIdOrNull(owner_id)
+    
+    if (User == null) {
+      // Если клиента нет, начинаем заново
+      return "404 NotFound"
+      "Telegram Bot" -> "Telegram App": {welcome_message}
+    }
+    
+    // Сохраняем скан в зашифрованную корзину
+    minio.uploadObject("PASSPORTS", foreignPassportPhoto)
+    
+    // Считываем данные паспорта по фото
+    ExtractedData = "passport-data-extractor".extractPassportData(ObjectId) {
+      // Достаем фото по ObjectId из хранилища
+      PhotoFile = minio.getObject(ObjectId)
+    }
+    
+    // Обновляем passport у User
+    User = postgres.updateUser(User)    
+  }
+  
+  // Переходим к следующему шагу
+  return "{next_step}"
+}
